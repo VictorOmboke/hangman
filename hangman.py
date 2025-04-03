@@ -13,3 +13,17 @@ def word_selector():
     #Randomly select and store any word from the words list.
     random_word = random.choice(words_list)
     return random_word
+
+#Create dictionary to track game progress and stats
+def game_state():
+    """Track game progress using a dictionary.
+
+    return game_dict: (dict) - the dictionary housing the game data.
+    """
+    #Initialize the dictionary
+    game_dict = {
+        "Correct Guesses": [],
+        "Incorrect Guesses": [],
+        "Remaining attempts": 6,
+        "Word display": ""
+        }
