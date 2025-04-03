@@ -12,9 +12,9 @@ def word_selector():
     """
     #Randomly select and store any word from the words list.
     random_word = random.choice(words_list)
-    return random_word
+    return random_word.upper()
 
-#Display word progress to user
+#Display word progress to user.
 def display_word(word_to_guess):
     """Display the word as underscores and update when user guesses correct.
 
@@ -28,15 +28,34 @@ def display_word(word_to_guess):
     word_display = "_ " * len(word_to_guess)
     return word_display
 
-#Create dictionary to track game progress and stats
+#Get user to input their guesses.
+def get_user_guess():
+    """Prompt user to enter a guess by entering a letter.
+
+    Returns:
+        user_guess: (string) - the users guess.
+    """
+    prompt = True
+    while prompt:
+        user_guess = input("Please guess a letter. ").upper()
+        if user_guess.isalpha() == False:
+            print("Invalid input. Please enter a letter.")
+        elif user_guess == "":
+            print("Invalid input. Please enter a letter.")
+        else:
+           prompt = False
+           return user_guess
+           
+#Create dictionary to track game progress and stats.
 def game_state():
     """Track game progress using a dictionary.
 
     return game_dict: (dict) - the dictionary housing the game data.
     """
-    #Initialize the dictionary
+    #Initialize the dictionary.
     game_dict = {
         "Correct Guesses": [],
         "Incorrect Guesses": [],
         "Remaining attempts": 6
         }
+    return game_dict
