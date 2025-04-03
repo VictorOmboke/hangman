@@ -14,6 +14,20 @@ def word_selector():
     random_word = random.choice(words_list)
     return random_word
 
+#Display word progress to user
+def display_word(word_to_guess):
+    """Display the word as underscores and update when user guesses correct.
+
+    Parameters:
+        word_to_guess: (string) - the randomly chosen word that the user is trying to guess.    
+
+    Returns:
+        word_display: (string) - the word to be guessed.
+    """
+    #Display the word to be guessed as underscores.
+    word_display = "_ " * len(word_to_guess)
+    return word_display
+
 #Create dictionary to track game progress and stats
 def game_state():
     """Track game progress using a dictionary.
@@ -24,6 +38,5 @@ def game_state():
     game_dict = {
         "Correct Guesses": [],
         "Incorrect Guesses": [],
-        "Remaining attempts": 6,
-        "Word display": ""
+        "Remaining attempts": 6
         }
