@@ -3,6 +3,19 @@ from words import words_list
 #Import random module.
 import random
 
+#Create dictionary to track game progress and stats.
+def game_state():
+    """Track game progress using a dictionary.
+
+    return game_dict: (dict) - the dictionary housing the game data.
+    """
+    #Initialize the dictionary.
+    game_dict = {
+        "Incorrect Guesses": [],
+        "Remaining Attempts": 6
+        }
+    return game_dict
+
 #Randomly select a word from the words list.
 def word_selector():
     """Select a random word from the list of words.
@@ -70,32 +83,36 @@ def get_user_guess():
            return user_guess
         
 #Process the  players guess
-def process_guess(player_guess, word_to_guess, game_state):
+def process_guess(user_guess, word_to_guess, game_state, word_display):
     """Determine if the player's guess is correct or not and handle word display and update game state.
 
     Args:
         player_guess (str): the players guess.
         word_to_guess (str): the word to be guessed.
         game_state (dict): A dictionary tracking the games stats.
+        word_display: (str): current display of guessed/un-guessed letters.
 
     Returns:
         _type_: _description_
     """
     #Handle if the player made the correct guess.
-    if player_guess in word_to_guess:
-        game_state["Correct Guesses"] = player_guess
+    if user_guess in word_to_guess:
+        print(update_word_display(word_to_guess, user_guess, word_display))
+        print("You made a correct guess!")
+        print(f"Your incorrect guesses: {game_state["Incorrect Guesses"]}")
+        print(f"Your remaining attempts: {game_state["Remaining Attempts"]}")
+    #Handle when the player made an incorrect guess.
+    else:
+        game_state["Incorrect Guesses"].append(user_guess)
+        game_state["Remaining Attempts"] -= 1
+        print("Incorrect guess, try again!")
+        print(f"Your incorrect guesses: {game_state["Incorrect Guesses"]}")
+        print(f"Your remaining attempts: {game_state["Remaining Attempts"]}")
 
-           
-#Create dictionary to track game progress and stats.
-def game_state():
-    """Track game progress using a dictionary.
-
-    return game_dict: (dict) - the dictionary housing the game data.
-    """
-    #Initialize the dictionary.
-    game_dict = {
-        "Correct Guesses": [],
-        "Incorrect Guesses": [],
-        "Remaining attempts": 6
-        }
-    return game_dict
+#word = word_selector()
+#print(f"Word to guess: {word}")
+#game = game_state()
+#guess = get_user_guess()
+#display = word_display(word)
+#print(f"Word display: {display}")
+#process_guess(guess, word, game, display)
