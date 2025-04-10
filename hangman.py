@@ -15,7 +15,7 @@ def word_selector():
     return random_word.upper()
 
 #Display word progress to user.
-def display_word(word_to_guess):
+def word_display(word_to_guess):
     """Display the word as underscores and update when user guesses correct.
 
     Parameters:
@@ -25,8 +25,31 @@ def display_word(word_to_guess):
         word_display: (string) - the word to be guessed.
     """
     #Display the word to be guessed as underscores.
-    word_display = "_ " * len(word_to_guess)
+    word_display = "_" * len(word_to_guess)
     return word_display
+
+#Update the word display when the user guesses a word correctly.
+def update_word_display(word_to_guess, user_guess, word_display):
+    """Update the word display when the user guesses the word correctly.
+
+    Args:
+        word_to_guess (str): the word to be guessed.
+        user_guess (str): the users guess.
+        word_display (str): current display of guessed/un-guessed letters.
+
+    Returns:
+        str: an updated version of the word display.
+    """
+    #store the index of each occurrence of the users guess in the word to e guessed.
+    occurrences = [i for i, letter in enumerate(word_to_guess) if letter == user_guess]
+    #Convert word to guess into list.
+    word_display_list = list(word_display)
+    #Replace spaces with correctly guessed letters.
+    for i in occurrences:
+        word_display_list[i] = user_guess
+    #Turn the list back to into a string
+    updated_word_display = ' '.join(word_display_list)
+    return updated_word_display
 
 #Get user to input their guesses.
 def get_user_guess():
@@ -45,6 +68,23 @@ def get_user_guess():
         else:
            prompt = False
            return user_guess
+        
+#Process the  players guess
+def process_guess(player_guess, word_to_guess, game_state):
+    """Determine if the player's guess is correct or not and handle word display and update game state.
+
+    Args:
+        player_guess (str): the players guess.
+        word_to_guess (str): the word to be guessed.
+        game_state (dict): A dictionary tracking the games stats.
+
+    Returns:
+        _type_: _description_
+    """
+    #Handle if the player made the correct guess.
+    if player_guess in word_to_guess:
+        game_state["Correct Guesses"] = player_guess
+
            
 #Create dictionary to track game progress and stats.
 def game_state():
