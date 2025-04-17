@@ -25,13 +25,13 @@ def word_selector():
     """
     #Randomly select and store any word from the words list.
     random_word = random.choice(words_list)
+    #Return the random word in uppercase letters.
     return random_word.upper()
 
-#Display word progress to user.
 def word_display(word_to_guess):
     """Display the word as underscores and update when user guesses correct.
 
-    Parameters:
+    Args:
         word_to_guess: (string) - the randomly chosen word that the user is trying to guess.    
 
     Returns:
@@ -41,7 +41,6 @@ def word_display(word_to_guess):
     word_display = "_" * len(word_to_guess)
     return word_display
 
-#Update the word display when the user guesses a word correctly.
 def update_word_display(word_to_guess, user_guess, word_display):
     """Update the word display when the user guesses the word correctly.
 
