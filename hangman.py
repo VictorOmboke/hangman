@@ -50,20 +50,19 @@ def update_word_display(word_to_guess, user_guess, word_display):
         word_display (str): current display of guessed/un-guessed letters.
 
     Returns:
-        str: an updated version of the word display.
+        updated_word_display: (str) - an updated version of the word display.
     """
-    #store the index of each occurrence of the users guess in the word to e guessed.
+    #store the index of each occurrence of the users guess in the word to be guessed.
     occurrences = [i for i, letter in enumerate(word_to_guess) if letter == user_guess]
     #Convert word to guess into list.
     word_display_list = list(word_display)
-    #Replace spaces with correctly guessed letters.
+    #Replace underscores with correctly guessed letters.
     for i in occurrences:
         word_display_list[i] = user_guess
     #Turn the list back to into a string
-    updated_word_display = ' '.join(word_display_list)
+    updated_word_display = ''.join(word_display_list)
     return updated_word_display
 
-#Get user to input their guesses.
 def get_user_guess():
     """Prompt user to enter a guess by entering a letter.
     Returns:
