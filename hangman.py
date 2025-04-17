@@ -101,6 +101,9 @@ def process_guess(user_guess, word_to_guess, game_state):
         print(f"Your incorrect guesses: {game_state["Incorrect Guesses"]}")
         #Display remaining attempts.
         print(f"Your remaining attempts: {game_state["Remaining Attempts"]}")
+    #Handle when the user makes the same incorrect guess twice.
+    elif user_guess in game_state["Incorrect Guesses"]:
+        print("You have already guessed that letter. Try again!")
     #Handle when the player made an incorrect guess.
     else:
         #Add the users incorrect guesses to the dictionary.
@@ -116,33 +119,61 @@ def process_guess(user_guess, word_to_guess, game_state):
 def play_again():
     """Prompt user to play again.
     """
+    #Initialize acceptable answers in a list.
     answer = ["yes", "no"]
     prompt = True
     while prompt:
         user_input = input("Would you like to play the game again? (Enter 'yes' or 'no') ").lower()
-        if user_input in answer and user_input == "yes":
+        #Check if the users input is an acceptable answer and play the game again.
+        if user_input == "yes":
             prompt = False
             print("Great, have fun!")
-            #call function to play the game
-        elif user_input in answer and user_input == "no":
+            play_game()
+        #Check if the users input is an acceptable answer and end the game.
+        elif user_input == "no":
             prompt = False
             print("Thank you for playing!")
-        else:
+        #Handle any other input.
+        elif user_input not in answer:
             print("Invalid input. Please enter 'yes' or 'no'.")
 
-print(play_again())
-
-#Determine if the user has won or lost.
 def results(game_state, word_to_guess):
     """Determine if the user has won or lost the game.
 
     Args:
         game_state (dict): holds the current stats of the game.
+        word_to_guess (str): the word to be guessed
     """
     #Handle when the user runs out of attempts.
     if game_state["Remaining Attempts"] == 0:
+        #Update the 'Game Over' key in the dictionary.
+        game_state["Game Over"] = True
         print("Game over!")
         print("You are all out of attempts.")
         print(f"The correct word was: {word_to_guess}")
-        #Prompt the user to enter yes or no if they wish to play the game again or not.
-    #determine how to declare the user a winner, loop over the display word to see if there are any remaining '_' and if there are none, they win!
+        #Ask user to play again.
+        play_again()
+    #Handle if the user guesses the word correctly.
+    elif "_" not in game_state["Current Display"]:
+        game_state["Game Over"] = True
+        print("You Win!")
+        print(f"You correctly guessed the word {word_to_guess}!")
+        play_again()
+
+def play_game():
+    """Play the game by using a loop.
+    """
+    game = game_state()
+    word_to_guess = word_selector()
+    #Store the current word display
+    game["Current Display"] = word_display(word_to_guess)
+    print(f"Guess the word: {game["Current Display"]}")
+    #Initialize while loop to play multiple rounds of the game.
+    while game["Remaining Attempts"] > 0 and not game["Game Over"]: 
+        user_guess = get_user_guess()
+        #Provide feedback for each guess.
+        process_guess(user_guess, word_to_guess, game)
+        #Display the results of the game.
+        results(game, word_to_guess)
+#play the game
+play_game()
