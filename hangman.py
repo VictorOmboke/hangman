@@ -3,7 +3,6 @@ from words import words_list
 #Import random module.
 import random
 
-#Create dictionary to track game progress and stats.
 def game_state():
     """Track game progress using a dictionary.
 
@@ -12,11 +11,12 @@ def game_state():
     #Initialize the dictionary.
     game_dict = {
         "Incorrect Guesses": [],
-        "Remaining Attempts": 6
+        "Remaining Attempts": 6,
+        "Current Display": "",
+        "Game Over": False
         }
     return game_dict
 
-#Randomly select a word from the words list.
 def word_selector():
     """Select a random word from the list of words.
 
