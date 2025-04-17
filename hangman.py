@@ -71,50 +71,48 @@ def get_user_guess():
     prompt = True
     while prompt:
         user_guess = input("Please guess a letter. ").upper()
+        #Handle if the users guess is not an alphabetical letter.
         if user_guess.isalpha() == False:
             print("Invalid input. Please enter a letter.")
+        #Handle if the user enters nothing.
         elif user_guess == "":
             print("Invalid input. Please enter a letter.")
+        #End the loop and return the users acceptable input.
         else:
            prompt = False
            return user_guess
         
-#Process the  players guess
-def process_guess(user_guess, word_to_guess, game_state, word_display):
+def process_guess(user_guess, word_to_guess, game_state):
     """Determine if the player's guess is correct or not and handle word display and update game state.
 
     Args:
         player_guess (str): the players guess.
         word_to_guess (str): the word to be guessed.
         game_state (dict): A dictionary tracking the games stats.
-        word_display: (str): current display of guessed/un-guessed letters.
-
-    Returns:
-        _type_: _description_
     """
     #Handle if the player made the correct guess.
     if user_guess in word_to_guess:
-        print(update_word_display(word_to_guess, user_guess, word_display))
+        #Update the display in the game_state dictionary.
+        game_state["Current Display"] = update_word_display(word_to_guess, user_guess, game_state["Current Display"])
+        #Display the updated word to be guessed.
+        print(game_state["Current Display"])
         print("You made a correct guess!")
+        #Display incorrect guesses.
         print(f"Your incorrect guesses: {game_state["Incorrect Guesses"]}")
+        #Display remaining attempts.
         print(f"Your remaining attempts: {game_state["Remaining Attempts"]}")
     #Handle when the player made an incorrect guess.
     else:
+        #Add the users incorrect guesses to the dictionary.
         game_state["Incorrect Guesses"].append(user_guess)
+        #Remove one of their attempts.
         game_state["Remaining Attempts"] -= 1
         print("Incorrect guess, try again!")
+        #Display the users incorrect guesses.
         print(f"Your incorrect guesses: {", ".join(game_state["Incorrect Guesses"])}")
+        #Display the users remaining attempts.
         print(f"Your remaining attempts: {game_state["Remaining Attempts"]}")
 
-#word = word_selector()
-#print(f"Word to guess: {word}")
-#game = game_state()
-#guess = get_user_guess()
-#display = word_display(word)
-#print(f"Word display: {display}")
-#process_guess(guess, word, game, display)
-
-#Ask user if they would like to play again.
 def play_again():
     """Prompt user to play again.
     """
@@ -141,6 +139,7 @@ def results(game_state, word_to_guess):
     Args:
         game_state (dict): holds the current stats of the game.
     """
+    #Handle when the user runs out of attempts.
     if game_state["Remaining Attempts"] == 0:
         print("Game over!")
         print("You are all out of attempts.")
