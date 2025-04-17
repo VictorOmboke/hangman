@@ -67,7 +67,6 @@ def update_word_display(word_to_guess, user_guess, word_display):
 #Get user to input their guesses.
 def get_user_guess():
     """Prompt user to enter a guess by entering a letter.
-
     Returns:
         user_guess: (string) - the users guess.
     """
@@ -106,7 +105,7 @@ def process_guess(user_guess, word_to_guess, game_state, word_display):
         game_state["Incorrect Guesses"].append(user_guess)
         game_state["Remaining Attempts"] -= 1
         print("Incorrect guess, try again!")
-        print(f"Your incorrect guesses: {game_state["Incorrect Guesses"]}")
+        print(f"Your incorrect guesses: {", ".join(game_state["Incorrect Guesses"])}")
         print(f"Your remaining attempts: {game_state["Remaining Attempts"]}")
 
 #word = word_selector()
