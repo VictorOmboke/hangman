@@ -5,8 +5,8 @@ import random
 
 def game_state():
     """Track game progress using a dictionary.
-
-    return game_dict: (dict) - the dictionary housing the game data.
+    Returns:
+      game_dict: (dict) - the dictionary housing the game data.
     """
     #Initialize the dictionary.
     game_dict = {
@@ -19,7 +19,6 @@ def game_state():
 
 def word_selector():
     """Select a random word from the list of words.
-
     Returns:
         random_word: (string) - a random word from the words list.
     """
@@ -30,10 +29,8 @@ def word_selector():
 
 def word_display(word_to_guess):
     """Display the word as underscores and update when user guesses correct.
-
     Args:
         word_to_guess: (string) - the randomly chosen word that the user is trying to guess.    
-
     Returns:
         word_display: (string) - the word to be guessed.
     """
@@ -48,7 +45,6 @@ def update_word_display(word_to_guess, user_guess, word_display):
         word_to_guess (str): the word to be guessed.
         user_guess (str): the users guess.
         word_display (str): current display of guessed/un-guessed letters.
-
     Returns:
         updated_word_display: (str) - an updated version of the word display.
     """
@@ -79,14 +75,14 @@ def get_user_guess():
             print("Invalid input. Please enter a letter.")
         #End the loop and return the users acceptable input.
         else:
+           #Stop the loop.
            prompt = False
            return user_guess
         
 def process_guess(user_guess, word_to_guess, game_state):
     """Determine if the player's guess is correct or not and handle word display and update game state.
-
     Args:
-        player_guess (str): the players guess.
+        user_guess (str): the players guess.
         word_to_guess (str): the word to be guessed.
         game_state (dict): A dictionary tracking the games stats.
     """
@@ -139,7 +135,6 @@ def play_again():
 
 def results(game_state, word_to_guess):
     """Determine if the user has won or lost the game.
-
     Args:
         game_state (dict): holds the current stats of the game.
         word_to_guess (str): the word to be guessed
