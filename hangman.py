@@ -115,3 +115,37 @@ def process_guess(user_guess, word_to_guess, game_state, word_display):
 #display = word_display(word)
 #print(f"Word display: {display}")
 #process_guess(guess, word, game, display)
+
+#Ask user if they would like to play again.
+def play_again():
+    """Prompt user to play again.
+    """
+    answer = ["yes", "no"]
+    prompt = True
+    while prompt:
+        user_input = input("Would you like to play the game again? (Enter 'yes' or 'no') ").lower()
+        if user_input in answer and user_input == "yes":
+            prompt = False
+            print("Great, have fun!")
+            #call function to play the game
+        elif user_input in answer and user_input == "no":
+            prompt = False
+            print("Thank you for playing!")
+        else:
+            print("Invalid input. Please enter 'yes' or 'no'.")
+
+print(play_again())
+
+#Determine if the user has won or lost.
+def results(game_state, word_to_guess):
+    """Determine if the user has won or lost the game.
+
+    Args:
+        game_state (dict): holds the current stats of the game.
+    """
+    if game_state["Remaining Attempts"] == 0:
+        print("Game over!")
+        print("You are all out of attempts.")
+        print(f"The correct word was: {word_to_guess}")
+        #Prompt the user to enter yes or no if they wish to play the game again or not.
+    #determine how to declare the user a winner, loop over the display word to see if there are any remaining '_' and if there are none, they win!
